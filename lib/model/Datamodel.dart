@@ -1,21 +1,25 @@
+import 'package:hive/hive.dart';
 
+part 'Datamodel.g.dart';
 
-class Courses {
-  late String courseTitle;
-  late int absentee;
+@HiveType(typeId: 0)
+class Records extends HiveObject {
+  @HiveField(0)
+  String? courseTitle;
 
-  Courses({required this.courseTitle, required this.absentee});
+  @HiveField(1)
+  int? absentee;
+
+  Records({this.courseTitle, this.absentee});
 }
 
-List<Courses> data = [
-    Courses(courseTitle: 'HM 102', absentee: 3),
-    Courses(courseTitle: 'CS 121', absentee: 7),
-    Courses(courseTitle: 'CS 222', absentee: 3),
-    Courses(courseTitle: 'HM 131', absentee: 4),
-    Courses(courseTitle: 'HM 102', absentee: 3),
-      Courses(courseTitle: 'CS 121', absentee: 7),
-    Courses(courseTitle: 'CS 222', absentee: 3),
-    Courses(courseTitle: 'HM 131', absentee: 4),
-    Courses(courseTitle: 'HM 102', absentee: 3),
- 
-  ];
+@HiveType(typeId: 1)
+class Person extends HiveObject {
+  @HiveField(0)
+  String? name;
+
+  @HiveField(1)
+  String? semester;
+
+  Person({this.name, this.semester});
+}

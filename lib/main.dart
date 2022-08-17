@@ -1,24 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:semester_attendance_tracker/Screens/MainScreen.dart';
-import 'package:semester_attendance_tracker/Screens/practscreen.dart';
+import 'package:semester_attendance_tracker/Screens/onboarding_screen.dart';
+import 'package:semester_attendance_tracker/model/Datamodel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+late Box box;
+// bool firsttime = true;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // initScreen = prefs.getInt("initScreen")!;
+  // await prefs.setInt("initScreen", 1);
+  // print('initScreen ${initScreen}');
+
+  final prefs = await SharedPreferences.getInstance();
+  final x = prefs.getBool('firsttime') ?? true;
+
+  await Hive.initFlutter();
+
+  //Records box
+  Hive.registerAdapter<Records>(RecordsAdapter());
+  box = await Hive.openBox<Records>('records');
+
+  //person box
+  Hive.registerAdapter<Person>(PersonAdapter());
+  box = await Hive.openBox<Person>('person');
+
+  runApp(MyApp(firsttime: x));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool firsttime;
+  const MyApp({Key? key, required this.firsttime}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      // title: 'Flutter Demo',
       theme: ThemeData.dark(
-        
-        
-        
-        
+
           // This is the theme of your application.
           //
           // Try running your application with "flutter run". You'll see the
@@ -30,7 +54,12 @@ class MyApp extends StatelessWidget {
           // is not restarted.
 
           ),
-      home: const MainScreen(),
+
+      routes: {
+        '/': (context) => OnboardingScreen(),
+        'mainScreen': (context) => MainScreen(),
+      },
+      initialRoute: firsttime == true ? '/' : 'mainScreen',
     );
   }
 }
