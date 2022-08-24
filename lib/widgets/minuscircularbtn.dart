@@ -35,13 +35,13 @@ class MinusCircularBtn extends StatelessWidget {
         course.save();
       },
       child: Container(
-        width: 25,
-        height: 25,
+        width: 27,
+        height: 27,
         decoration: BoxDecoration(
             color: btn_color, borderRadius: BorderRadius.circular(25)),
         child: Icon(
           icon,
-          size: 20,
+          size: 21,
           color: icon_color,
         ),
       ),

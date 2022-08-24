@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:semester_attendance_tracker/Screens/MainScreen.dart';
 import 'package:semester_attendance_tracker/Screens/onboarding_screen.dart';
@@ -15,18 +16,26 @@ Future<void> main() async {
   // await prefs.setInt("initScreen", 1);
   // print('initScreen ${initScreen}');
 
+  // landcape orientation code
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+//onboarding screen bool flag
   final prefs = await SharedPreferences.getInstance();
   final x = prefs.getBool('firsttime') ?? true;
 
+// hive initialization
   await Hive.initFlutter();
 
   //Records box
   Hive.registerAdapter<Records>(RecordsAdapter());
-  box = await Hive.openBox<Records>('records');
+  Box boxRec = await Hive.openBox<Records>('records');
 
   //person box
   Hive.registerAdapter<Person>(PersonAdapter());
   box = await Hive.openBox<Person>('person');
+
+  // box.put('newperson', Person(name: 'Name', semester: 1.toString()));
 
   runApp(MyApp(firsttime: x));
 }

@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:semester_attendance_tracker/model/Datamodel.dart';
 
@@ -21,7 +19,8 @@ class _AddCourseState extends State<AddCourse> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.black,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      backgroundColor: cardblackclr,
       child: SizedBox(
         width: 400,
         height: 400,
@@ -46,10 +45,19 @@ class _AddCourseState extends State<AddCourse> {
                     ),
                   ),
                   TextField(
+                    // maxLength: 5,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(9),
+                    ],
                     style: blacksmalltextstyle,
                     controller: _courseC,
                     // keyboardType: TextInputType.numberWithOptions(),
                     decoration: InputDecoration(
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red),
+                          // borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
                         filled: true,
                         fillColor: Color.fromARGB(255, 255, 255, 255),
                         border: OutlineInputBorder(
@@ -78,6 +86,9 @@ class _AddCourseState extends State<AddCourse> {
                     ),
                   ),
                   TextField(
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(2),
+                    ],
                     style: blacksmalltextstyle,
                     keyboardType: TextInputType.number,
                     controller: _absenteesC,
@@ -103,18 +114,23 @@ class _AddCourseState extends State<AddCourse> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         )),
-                    onPressed: () {
+                    onPressed: () async {
                       var newCourse;
                       if (_courseC.text.isEmpty) {
                         showDialog(
                             context: context,
                             builder: (context) {
+                              Future.delayed(Duration(seconds: 1), () {
+                                Navigator.of(context).pop(true);
+                              });
                               return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
                                 backgroundColor: Colors.red,
-                                title: Text("Course Title missing",
+                                title: Text("Course title missing",
                                     style: smallBtextstyle),
                                 content: Text(
-                                  'Please, Enter the Course title',
+                                  'Please, Enter the Course title to continue',
                                   style: extrasmalltextstyle,
                                 ),
                               );
@@ -130,7 +146,7 @@ class _AddCourseState extends State<AddCourse> {
                       }
 
                       Box<Records> recBox = Hive.box<Records>('records');
-                      recBox.add(newCourse);
+                      await recBox.add(newCourse);
                       _absenteesC.clear();
                       _courseC.clear();
                       Navigator.pop(context);

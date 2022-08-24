@@ -1,25 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 const mainclr = Color.fromARGB(255, 21, 118, 255);
+// 255, 27, 26, 26
+const cardblackclr = Color.fromARGB(255, 27, 26, 26);
 
-var largetextstyle = GoogleFonts.montserrat(fontSize: 35);
+const largetextstyle =
+    TextStyle(fontSize: 35, fontFamily: 'Montserrat', color: Colors.white);
 
-var largeBtextstyle =
-    GoogleFonts.montserrat(fontSize: 35, fontWeight: FontWeight.bold);
+const largeBtextstyle = TextStyle(
+    color: Colors.white,
+    fontFamily: 'Montserrat',
+    fontSize: 35,
+    fontWeight: FontWeight.bold);
 
-var smalltextstyle = GoogleFonts.montserrat(
+const mediumBtextstyle = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: Colors.white);
+
+const mediumtextstyle = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 25,
+    // fontWeight: FontWeight.bold,
+    color: Colors.white);
+
+const smalltextstyle = TextStyle(
+  fontFamily: 'Montserrat',
   color: Colors.white,
-  fontSize: 20,
+  fontSize: 18,
 );
 
-var smallBtextstyle = GoogleFonts.montserrat(
-    fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
+const smallBtextstyle = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Colors.white);
 
-var blacksmalltextstyle = GoogleFonts.montserrat(
-    fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold);
+const blacksmallBtextstyle = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 18,
+    color: Colors.black,
+    fontWeight: FontWeight.bold);
 
-var extrasmalltextstyle = GoogleFonts.montserrat(fontSize: 15);
+const blacksmalltextstyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 18,
+  color: Colors.black,
+  // fontWeight: FontWeight.bold
+);
 
-var extrasmallblacktextstyle = GoogleFonts.montserrat(
-    fontSize: 15, color: Color.fromARGB(192, 135, 135, 135));
+const extrasmalltextstyle =
+    TextStyle(fontFamily: 'Montserrat', fontSize: 15, color: Colors.white);
+
+const extrasmallblacktextstyle = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 15,
+    color: Color.fromARGB(192, 135, 135, 135));
+
+const extrasmallBblacktextstyle = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(192, 135, 135, 135));
